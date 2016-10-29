@@ -7,11 +7,15 @@ namespace AssemblyCSharp
 
 		int[] position;
 		int speed;
+		int topSpeed;
+		double acceleration;
 
 		public Vehicle ()
 		{
 			position = new int[2];
-			speed = 1;
+			speed = 0;
+			acceleration = 0.1;
+			topSpeed = 1;
 		}
 
 		public void stop()
