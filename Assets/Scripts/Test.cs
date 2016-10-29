@@ -3,7 +3,7 @@ using System.Collections;
 using AssemblyCSharp;
 
 
-public class test : MonoBehaviour {
+public class Test : MonoBehaviour {
 
 	Vehicle v;
 

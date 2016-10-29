@@ -45,8 +45,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\Scripts\Test.cs" />
      <Compile Include="Assets\Stoplight.cs" />
-     <Compile Include="Assets\Test.cs" />
      <Compile Include="Assets\Vehicle.cs" />
      <None Include="Assets\racing-pack\Spritesheets\spritesheet_characters.xml" />
      <None Include="Assets\racing-pack\Spritesheets\spritesheet_objects.xml" />
