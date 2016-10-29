@@ -45,14 +45,23 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Test.cs" />
+    <None Include="Assets\racing-pack\Spritesheets\spritesheet_characters.xml" />
+    <None Include="Assets\racing-pack\Spritesheets\spritesheet_objects.xml" />
+    <None Include="Assets\racing-pack\Spritesheets\spritesheet_tiles.xml" />
+    <None Include="Assets\racing-pack\License.txt" />
+    <None Include="Assets\racing-pack\Spritesheets\spritesheet_vehicles.xml" />
     <Reference Include="UnityEngine.Networking">
       <HintPath>..\..\..\..\Volumes\EXTERNAL D\Applications\Unity\Unity.app\Contents\UnityExtensions\Unity\Networking\UnityEngine.Networking.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.UI">
       <HintPath>..\..\..\..\Volumes\EXTERNAL D\Applications\Unity\Unity.app\Contents\UnityExtensions\Unity\GUISystem\UnityEngine.UI.dll</HintPath>
     </Reference>
-    <Compile Include="Classes\Stoplight.cs" />
-    <Compile Include="Classes\Vehicle.cs" />
+    <Compile Include="Classes\Stoplight.cs">
+      <Link>Stoplight.cs</Link>
+    </Compile>
+    <Compile Include="Classes\Vehicle.cs">
+      <Link>Vehicle.cs</Link>
+    </Compile>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
