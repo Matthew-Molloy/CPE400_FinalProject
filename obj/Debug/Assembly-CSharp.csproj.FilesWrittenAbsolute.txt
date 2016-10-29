@@ -1,0 +1,17 @@
+/Users/matthewmolloy/GitHub/CPE400_Project/Temp/bin/Debug/Assembly-CSharp.dll.mdb
+/Users/matthewmolloy/GitHub/CPE400_Project/Temp/bin/Debug/Assembly-CSharp.dll
+/Users/matthewmolloy/GitHub/CPE400_Project/obj/Debug/Assembly-CSharp.dll
+/Users/matthewmolloy/GitHub/CPE400_Project/obj/Debug/Assembly-CSharp.dll.mdb
+/Users/matthewmolloy/GitHub/CPE400_Project/Temp/bin/Debug/UnityEngine.dll
+/Users/matthewmolloy/GitHub/CPE400_Project/Temp/bin/Debug/UnityEditor.dll
+/Users/matthewmolloy/GitHub/CPE400_Project/Temp/bin/Debug/UnityEngine.Networking.dll
+/Users/matthewmolloy/GitHub/CPE400_Project/Temp/bin/Debug/UnityEngine.UI.dll
+/Users/matthewmolloy/GitHub/CPE400_Project/Temp/bin/Debug/Mono.Cecil.dll
+/Users/matthewmolloy/GitHub/CPE400_Project/Temp/bin/Debug/Unity.SerializationLogic.dll
+/Users/matthewmolloy/GitHub/CPE400_Project/Temp/bin/Debug/Unity.DataContract.dll
+/Users/matthewmolloy/GitHub/CPE400_Project/Temp/bin/Debug/ICSharpCode.NRefactory.dll
+/Users/matthewmolloy/GitHub/CPE400_Project/Temp/bin/Debug/Unity.UNetWeaver.dll
+/Users/matthewmolloy/GitHub/CPE400_Project/Temp/bin/Debug/Unity.UNetWeaver.dll.mdb
+/Users/matthewmolloy/GitHub/CPE400_Project/Temp/bin/Debug/Unity.CecilTools.dll
+/Users/matthewmolloy/GitHub/CPE400_Project/Temp/bin/Debug/Mono.Cecil.Pdb.dll
+/Users/matthewmolloy/GitHub/CPE400_Project/Temp/bin/Debug/Mono.Cecil.Mdb.dll
