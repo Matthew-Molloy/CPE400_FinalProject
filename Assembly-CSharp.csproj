@@ -45,9 +45,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\CarDestroyer.cs" />
+     <Compile Include="Assets\CarSpawner.cs" />
      <Compile Include="Assets\Scripts\Test.cs" />
      <Compile Include="Assets\Stoplight.cs" />
      <Compile Include="Assets\Vehicle.cs" />
+     <Compile Include="Assets\VehicleBehavior.cs" />
      <None Include="Assets\racing-pack\Spritesheets\spritesheet_characters.xml" />
      <None Include="Assets\racing-pack\Spritesheets\spritesheet_objects.xml" />
      <None Include="Assets\racing-pack\Spritesheets\spritesheet_tiles.xml" />

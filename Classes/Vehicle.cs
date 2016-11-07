@@ -5,15 +5,15 @@ namespace AssemblyCSharp
 	public class Vehicle
 	{
 
-		int[] position;
-		int speed;
-		int topSpeed;
-		double acceleration;
+		private int[] position;
+		private float speed;
+		private int topSpeed;
+		private double acceleration;
 
 		public Vehicle ()
 		{
 			position = new int[2];
-			speed = 0;
+			speed = 2f;
 			acceleration = 0.1;
 			topSpeed = 1;
 		}
@@ -36,6 +36,10 @@ namespace AssemblyCSharp
 		public bool checkCar()
 		{
 			return true;
+		}
+
+		public float getSpeed() {
+			return speed;
 		}
 
 

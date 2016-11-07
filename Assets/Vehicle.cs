@@ -5,13 +5,13 @@ namespace AssemblyCSharp
 	public class Vehicle
 	{
 
-		int[] position;
-		int speed;
+		private int[] position;
+		private float speed;
 
 		public Vehicle ()
 		{
 			position = new int[2];
-			speed = 1;
+			speed = 1f;
 		}
 
 		public void stop()
@@ -34,6 +34,23 @@ namespace AssemblyCSharp
 			return true;
 		}
 
+		public int[] Position {
+			get {
+				return this.position;
+			}
+			set {
+				position = value;
+			}
+		}
+
+		public float Speed {
+			get {
+				return this.speed;
+			}
+			set {
+				speed = value;
+			}
+		}
 
 	}
 }
