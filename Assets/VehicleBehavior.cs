@@ -36,15 +36,18 @@ public class VehicleBehavior : MonoBehaviour {
 
 		if (done == false) {
 
-			Vector2 dir = targetWaypoint.position - this.transform.localPosition;
+			Vector3 dir = targetWaypoint.position - this.transform.position;
 			float distThisFrame = vehicle.Speed * Time.deltaTime;
 
 			if (dir.magnitude <= distThisFrame) {
 				targetWaypoint = null;
 			} else {
-				transform.Translate (dir.normalized * distThisFrame);
-				//Quaternion targetRotation = Quaternion.LookRotation (dir);
-				//this.transform.rotation = Quaternion.Lerp (this.transform.rotation, targetRotation, Time.deltaTime * 1);
+				//move the vehicle
+				transform.Translate (dir.normalized * distThisFrame, Space.World);
+
+				//turn if we need to turn
+				this.transform.rotation = Quaternion.LookRotation(dir, new Vector3(0,0,-1).normalized);
+				this.transform.Rotate (new Vector3 (-90, 0));
 			}
 		}
 
