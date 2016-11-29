@@ -37,6 +37,7 @@ GameObject:
   - 4: {fileID: 4000011527419448}
   - 114: {fileID: 114000013579371274}
   - 61: {fileID: 61000014253430470}
+  - 114: {fileID: 114000012642956420}
   m_Layer: 8
   m_Name: CarObject
   m_TagString: Untagged
@@ -85,6 +86,17 @@ BoxCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Size: {x: 1, y: 1.5}
+--- !u!114 &114000012642956420
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000011788739616}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fbf1cfaef48224c8e8894b11605158b3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114000013579371274
 MonoBehaviour:
   m_ObjectHideFlags: 1
