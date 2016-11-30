@@ -91,8 +91,8 @@ public class VehicleBehavior : MonoBehaviour {
 				} else {
 					transform.Translate (dir.normalized * distThisFrame);
 					//turn if we need to turn
-					this.transform.rotation = Quaternion.LookRotation(dir, new Vector3(0,0,-1).normalized);
-					this.transform.Rotate (new Vector3 (-90, 0));
+					//this.transform.rotation = Quaternion.LookRotation(dir, new Vector3(0,0,-1).normalized);
+					//this.transform.Rotate (new Vector3 (-90, 0));
 				}
 			}
 
@@ -105,8 +105,8 @@ public class VehicleBehavior : MonoBehaviour {
 				distThisFrame = currSpeed * Time.deltaTime;
 				transform.Translate (dir.normalized * distThisFrame);
 				//turn if we need to turn
-				this.transform.rotation = Quaternion.LookRotation(dir, new Vector3(0,0,-1).normalized);
-				this.transform.Rotate (new Vector3 (-90, 0));
+				//this.transform.rotation = Quaternion.LookRotation(dir, new Vector3(0,0,-1).normalized);
+				//this.transform.Rotate (new Vector3 (-90, 0));
 			}
 
 			else if (status == Status.Stop) {
@@ -114,8 +114,8 @@ public class VehicleBehavior : MonoBehaviour {
 				distThisFrame = currSpeed * Time.deltaTime;
 				transform.Translate (dir.normalized * distThisFrame);
 				//turn if we need to turn
-				this.transform.rotation = Quaternion.LookRotation(dir, new Vector3(0,0,-1).normalized);
-				this.transform.Rotate (new Vector3 (-90, 0));
+				//this.transform.rotation = Quaternion.LookRotation(dir, new Vector3(0,0,-1).normalized);
+				//this.transform.Rotate (new Vector3 (-90, 0));
 			}
 			updateStatus ();
 		}

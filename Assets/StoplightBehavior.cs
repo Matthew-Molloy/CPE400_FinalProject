@@ -12,9 +12,9 @@ public class StoplightBehavior : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		stoplight.Status = Stoplight.Light.Yellow;
+		stoplight.Status = Stoplight.Light.Green;
 		resetTimers ();
-		Debug.Log ("Light: Yellow");
+		Debug.Log ("Light: Green");
 	}
 	
 	// Update is called once per frame
