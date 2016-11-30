@@ -49,6 +49,7 @@
      <Compile Include="Assets\CarSpawner.cs" />
      <Compile Include="Assets\Scripts\Test.cs" />
      <Compile Include="Assets\Stoplight.cs" />
+     <Compile Include="Assets\StoplightBehavior.cs" />
      <Compile Include="Assets\Vehicle.cs" />
      <Compile Include="Assets\VehicleBehavior.cs" />
      <None Include="Assets\racing-pack\Spritesheets\spritesheet_characters.xml" />

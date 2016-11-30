@@ -12,7 +12,7 @@ namespace AssemblyCSharp
 		}
 
 		private int[] position;
-		private Light status;
+		public Light status;
 
 		public Stoplight ()
 		{
