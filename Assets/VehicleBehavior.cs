@@ -12,8 +12,8 @@ public class VehicleBehavior : MonoBehaviour {
 	}
 
 	public Vehicle vehicle = new Vehicle();
-	GameObject waypoint;
-	Transform targetWaypoint;
+	GameObject _waypoint;
+	Transform targetWaypoint = null;
 	int waypointIndex = 0;
 	GameObject stoplight;
 	Status status;
@@ -22,7 +22,20 @@ public class VehicleBehavior : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		waypoint = GameObject.Find ("Waypoint");
+		var allWaypoints = GameObject.FindGameObjectsWithTag ("Waypoints");
+		var closestDist = Mathf.Infinity;
+		if (allWaypoints.Length == 0)
+			Debug.LogError ("Couldn't find any waypoints!");
+		
+		foreach (var waypoint in allWaypoints) {
+			var distance = Vector2.Distance (this.transform.position, waypoint.transform.position);
+			if (distance < closestDist) {
+				closestDist = distance;
+				_waypoint = waypoint;
+			}
+		}
+
+		Debug.Assert (_waypoint != null, "Unable to find any waypoints on initialize!");
 		status = Status.Go;
 		currSpeed = vehicle.Speed;
 		stoplight = null;
@@ -31,7 +44,7 @@ public class VehicleBehavior : MonoBehaviour {
 
 	void GetNextWaypoint() {
 		try {
-			targetWaypoint = waypoint.transform.GetChild (waypointIndex);
+			targetWaypoint = _waypoint.transform.GetChild (waypointIndex);
 		} catch(UnityException ue) {
 			targetWaypoint = null;
 		}
@@ -76,23 +89,21 @@ public class VehicleBehavior : MonoBehaviour {
 
 		if (done == false) {
 			Vector2 dir = targetWaypoint.position - this.transform.localPosition;
-			float distThisFrame = currSpeed * Time.deltaTime;
+			float distThisFrame;
 
 			if (status == Status.Go) {
 				currSpeed = vehicle.Speed;
+				distThisFrame = currSpeed * Time.deltaTime;
+
 				if (dir.magnitude <= distThisFrame) {
 					// waypoint HIT
 					targetWaypoint = null;
+					Debug.Log ("Hit the waypoint. Gotta get next one.");
 					if (slightAvail == true) {
 						stoplight = GameObject.Find ("Stoplight");
 						slightAvail = false;
 					}
 					updateStatus ();
-				} else {
-					transform.Translate (dir.normalized * distThisFrame);
-					//turn if we need to turn
-					//this.transform.rotation = Quaternion.LookRotation(dir, new Vector3(0,0,-1).normalized);
-					//this.transform.Rotate (new Vector3 (-90, 0));
 				}
 			}
 
@@ -102,21 +113,17 @@ public class VehicleBehavior : MonoBehaviour {
 				} else {
 					currSpeed = 0f;
 				}
-				distThisFrame = currSpeed * Time.deltaTime;
-				transform.Translate (dir.normalized * distThisFrame);
-				//turn if we need to turn
-				//this.transform.rotation = Quaternion.LookRotation(dir, new Vector3(0,0,-1).normalized);
-				//this.transform.Rotate (new Vector3 (-90, 0));
 			}
 
 			else if (status == Status.Stop) {
 				currSpeed = 0f;
-				distThisFrame = currSpeed * Time.deltaTime;
-				transform.Translate (dir.normalized * distThisFrame);
-				//turn if we need to turn
-				//this.transform.rotation = Quaternion.LookRotation(dir, new Vector3(0,0,-1).normalized);
-				//this.transform.Rotate (new Vector3 (-90, 0));
 			}
+
+			distThisFrame = currSpeed * Time.deltaTime;
+			transform.Translate (dir.normalized * distThisFrame, Space.World);
+			//turn if we need to turn
+			this.transform.rotation = Quaternion.LookRotation(dir, new Vector3(0,0,-1).normalized);
+			this.transform.Rotate (new Vector3 (-90, 0));
 			updateStatus ();
 		}
 	}
