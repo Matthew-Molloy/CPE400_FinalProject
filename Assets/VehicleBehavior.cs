@@ -18,7 +18,6 @@ public class VehicleBehavior : MonoBehaviour {
 	GameObject stoplight;
 	Status status;
 	float currSpeed;
-	bool slightAvail;
 
 	// Use this for initialization
 	void Start () {
@@ -39,7 +38,6 @@ public class VehicleBehavior : MonoBehaviour {
 		status = Status.Go;
 		currSpeed = vehicle.Speed;
 		stoplight = null;
-		slightAvail = true;
 	}
 
 	void GetNextWaypoint() {
@@ -48,6 +46,18 @@ public class VehicleBehavior : MonoBehaviour {
 		} catch(UnityException ue) {
 			targetWaypoint = null;
 		}
+
+		try {
+			Transform temp = targetWaypoint.transform.FindChild("Stoplight");
+			if(temp != null) {
+				stoplight = temp.gameObject;
+			} else {
+				stoplight = null;
+			}
+		} catch(UnityException ue) {
+			stoplight = null;
+		}
+
 		waypointIndex++;
 	}
 
@@ -55,24 +65,22 @@ public class VehicleBehavior : MonoBehaviour {
 		if (stoplight != null) {
 			StoplightBehavior targetScript = stoplight.GetComponent<StoplightBehavior> ();
 			int sls = targetScript.getStoplightStatus ();
-			switch (sls) 
-			{
-				// Green
-				case 1:
-					if (status != Status.Go) {
-						stoplight = null;
-					}
-					status = Status.Go;
-					break;
-				// Yellow
-				case 0:
-					status = Status.Slow;
-					break;
-				// Red
-				case -1:
-					status = Status.Stop;
-					break;
+			switch (sls) {
+			// Green
+			case 1:
+				status = Status.Go;
+				break;
+			// Yellow
+			case 0:
+				status = Status.Slow;
+				break;
+			// Red
+			case -1:
+				status = Status.Stop;
+				break;
 			}
+		} else {
+			status = Status.Go;
 		}
 	}
 
@@ -99,10 +107,6 @@ public class VehicleBehavior : MonoBehaviour {
 					// waypoint HIT
 					targetWaypoint = null;
 					Debug.Log ("Hit the waypoint. Gotta get next one.");
-					if (slightAvail == true) {
-						stoplight = GameObject.Find ("Stoplight");
-						slightAvail = false;
-					}
 					updateStatus ();
 				}
 			}
