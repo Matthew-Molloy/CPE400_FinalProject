@@ -9,10 +9,19 @@ public class StoplightBehavior : MonoBehaviour {
 	int yellowTimer;
 	int greenTimer;
 
+	private Color _currentColor{
+		get{
+			return gameObject.GetComponent<Renderer> ().material.color;
+		}
+		set{
+			gameObject.GetComponent<Renderer> ().material.color = value;
+		}
+	}
 
 	// Use this for initialization
 	void Start () {
 		stoplight.Status = Stoplight.Light.Yellow;
+		_currentColor = Color.yellow;
 		resetTimers ();
 		Debug.Log ("Light: Yellow");
 	}
@@ -46,6 +55,7 @@ public class StoplightBehavior : MonoBehaviour {
 			redTimer++;
 			if (redTimer > 500) {
 				stoplight.Status = Stoplight.Light.Green;
+				_currentColor = Color.green;
 				Debug.Log ("Light: Green");
 				resetTimers ();
 			}
@@ -54,6 +64,7 @@ public class StoplightBehavior : MonoBehaviour {
 			yellowTimer++;
 			if (yellowTimer > 150) {
 				stoplight.Status = Stoplight.Light.Red;
+				_currentColor = Color.red;
 				Debug.Log ("Light: Red");
 				resetTimers ();
 			}
@@ -62,6 +73,7 @@ public class StoplightBehavior : MonoBehaviour {
 			greenTimer++;
 			if (greenTimer > 500) {
 				stoplight.Status = Stoplight.Light.Yellow;
+				_currentColor = Color.yellow;
 				Debug.Log ("Light: Yellow");
 				resetTimers ();
 			}

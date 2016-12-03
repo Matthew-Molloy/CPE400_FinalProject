@@ -91,6 +91,7 @@ public class VehicleBehavior : MonoBehaviour {
 		if (targetWaypoint == null) {
 			GetNextWaypoint ();
 			if (targetWaypoint == null) {
+				Debug.Log ("Hit the last waypoint. Despawning car.");
 				Destroy (gameObject);
 				done = true;
 			}
@@ -113,15 +114,21 @@ public class VehicleBehavior : MonoBehaviour {
 			}
 
 			else if (status == Status.Slow) {
-				if (currSpeed > 0f) {
-					currSpeed -= 0.5f;
+				if (currSpeed > 0.6f) {
+					currSpeed *= 0.95f;
 				} else {
-					currSpeed = 0f;
+					currSpeed = 0.6f;
 				}
 			}
 
 			else if (status == Status.Stop) {
-				currSpeed = 0f;
+				if (dir.magnitude <= 0.1)
+					currSpeed = 0f;
+				else if (currSpeed > 0.6f) {
+					currSpeed *= 0.95f;
+				} else {
+					currSpeed = 0.6f;
+				}
 			}
 
 			distThisFrame = currSpeed * Time.deltaTime;

@@ -11,7 +11,7 @@ namespace AssemblyCSharp
 		public Vehicle ()
 		{
 			position = new int[2];
-			speed = 1f;
+			speed = 1.5f;
 		}
 
 		public void stop()
