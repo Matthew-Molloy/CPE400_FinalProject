@@ -46,16 +46,17 @@ public class VehicleBehavior : MonoBehaviour {
 		} catch(UnityException ue) {
 			targetWaypoint = null;
 		}
-
-		try {
-			Transform temp = targetWaypoint.transform.FindChild("Stoplight");
-			if(temp != null) {
-				stoplight = temp.gameObject;
-			} else {
+		if (targetWaypoint != null) {
+			try {
+				Transform temp = targetWaypoint.transform.FindChild("Stoplight");
+				if(temp != null) {
+					stoplight = temp.gameObject;
+				} else {
+					stoplight = null;
+				}
+			} catch(UnityException ue) {
 				stoplight = null;
 			}
-		} catch(UnityException ue) {
-			stoplight = null;
 		}
 
 		waypointIndex++;
