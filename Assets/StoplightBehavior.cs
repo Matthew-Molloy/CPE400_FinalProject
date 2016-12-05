@@ -5,6 +5,7 @@ using AssemblyCSharp;
 public class StoplightBehavior : MonoBehaviour {
 
 	public Stoplight stoplight = new Stoplight ();
+	public bool startRed = false;
 	int redTimer;
 	int yellowTimer;
 	int greenTimer;
@@ -20,15 +21,19 @@ public class StoplightBehavior : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		stoplight.Status = Stoplight.Light.Yellow;
-		_currentColor = Color.yellow;
+		if (startRed == false) {
+			stoplight.Status = Stoplight.Light.Green;
+			_currentColor = Color.green;
+		} else {
+			stoplight.Status = Stoplight.Light.Red;
+			_currentColor = Color.red;
+		}
 		resetTimers ();
 		Debug.Log ("Light: Yellow");
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		
 
 	}
 
