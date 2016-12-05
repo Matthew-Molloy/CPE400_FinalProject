@@ -17,7 +17,15 @@ public class CarDestroyer : MonoBehaviour {
     {
         var go = other.gameObject;
 
-        Debug.Log("Unloading Car object.");
+        if (go.tag != "Cars")
+        {
+            Debug.LogWarning(string.Format("CarDestroyer collided with an object with tag '{0}'... expected 'Cars'",
+                go.tag));
+            return;
+        }
+
+
+        Debug.Log(string.Format("Unloading Car object at [{0},{1}].", transform.position.x, transform.position.y));
         Destroy(go);
     }
 }

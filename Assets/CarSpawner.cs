@@ -36,8 +36,8 @@ public class CarSpawner : MonoBehaviour
     /// </summary>
     void SpawnCar()
     {
-        Debug.Log("Spawning a new car.");
         var myPos = transform.position;
+        Debug.Log(string.Format("Spawning a new car at [{0},{1}].", myPos.x, myPos.y));
 
         //TODO: handle the rotation of spawned object
         Instantiate(ObjectToSpawn, new Vector3(myPos.x, myPos.y, myPos.z),

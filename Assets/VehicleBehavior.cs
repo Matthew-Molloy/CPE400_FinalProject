@@ -13,7 +13,7 @@ public class VehicleBehavior : MonoBehaviour {
 
 	public Vehicle vehicle = new Vehicle();
 	GameObject _waypoint;
-	Transform targetWaypoint = null;
+	WaypointNode targetWaypoint = null;
 	int waypointIndex = 0;
 	GameObject stoplight;
 	Status status;
@@ -40,15 +40,19 @@ public class VehicleBehavior : MonoBehaviour {
 		stoplight = null;
 	}
 
-	void GetNextWaypoint() {
+	WaypointNode GetNextWaypoint(int currentIndex)
+	{
+	    WaypointNode nextNode = null;
 		try {
-			targetWaypoint = _waypoint.transform.GetChild (waypointIndex);
+			var waypoints = _waypoint.GetComponentsInChildren<WaypointNode>();
+		    if (currentIndex < waypoints.Length)
+		        nextNode = waypoints[currentIndex];
 		} catch(UnityException ue) {
-			targetWaypoint = null;
+            nextNode = null;
 		}
-		if (targetWaypoint != null) {
+		if (nextNode != null) {
 			try {
-				Transform temp = targetWaypoint.transform.FindChild("Stoplight");
+				Transform temp = nextNode.transform.FindChild("Stoplight");
 				if(temp != null) {
 					stoplight = temp.gameObject;
 				} else {
@@ -59,7 +63,7 @@ public class VehicleBehavior : MonoBehaviour {
 			}
 		}
 
-		waypointIndex++;
+        return nextNode;
 	}
 
 	void updateStatus() {
@@ -87,56 +91,90 @@ public class VehicleBehavior : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
-		bool done = false;
-		if (targetWaypoint == null) {
-			GetNextWaypoint ();
-			if (targetWaypoint == null) {
-				Debug.Log ("Hit the last waypoint. Despawning car.");
-				Destroy (gameObject);
-				done = true;
-			}
-		}
+        if (targetWaypoint == null)
+        {
+            targetWaypoint = GetNextWaypoint(waypointIndex);
+            if (targetWaypoint == null)
+            {
+                Debug.Log("Hit the last waypoint. Despawning car.");
+                Destroy(gameObject);
+                return;
+            }
+            targetWaypoint.IsOccupied = true;
+        }
 
-		if (done == false) {
-			Vector2 dir = targetWaypoint.position - this.transform.localPosition;
-			float distThisFrame;
+        Vector2 dir = targetWaypoint.transform.position - this.transform.localPosition;
+        float distThisFrame;
 
-			if (status == Status.Go) {
-				currSpeed = vehicle.Speed;
-				distThisFrame = currSpeed * Time.deltaTime;
+        if (status == Status.Go)
+        {
+            currSpeed = vehicle.Speed;
+            distThisFrame = currSpeed * Time.deltaTime;
 
-				if (dir.magnitude <= distThisFrame) {
-					// waypoint HIT
-					targetWaypoint = null;
-					Debug.Log ("Hit the waypoint. Gotta get next one.");
-					updateStatus ();
-				}
-			}
+            if (dir.magnitude <= distThisFrame)
+            {
+                // waypoint HIT
+                var nextWaypoint = GetNextWaypoint(waypointIndex + 1);
 
-			else if (status == Status.Slow) {
-				if (currSpeed > 0.6f) {
-					currSpeed *= 0.95f;
-				} else {
-					currSpeed = 0.6f;
-				}
-			}
+                //if we're at the last waypoint, or if there is a next waypoint and it's not occupied,
+                //then we want to start moving to the next waypoint. Otherwise just wait here.
+                if (nextWaypoint == null || nextWaypoint.IsOccupied == false)
+                {
+                    //free up this waypoint for others to occupy
+                    targetWaypoint.IsOccupied = false;
+                    targetWaypoint = null;
+                    waypointIndex++;
+                    //Debug.Log("Hit the waypoint. Gotta get next one.");
+                }
+                else if (nextWaypoint.IsOccupied == true)
+                {
+                    //just wait for it to be unoccupied
+                    currSpeed = 0f;
+                    //Debug.Log("Hit the waypoint, but next waypoint is occupied so we're waiting.");
+                }
 
-			else if (status == Status.Stop) {
-				if (dir.magnitude <= 0.1)
-					currSpeed = 0f;
-				else if (currSpeed > 0.6f) {
-					currSpeed *= 0.95f;
-				} else {
-					currSpeed = 0.6f;
-				}
-			}
+                updateStatus();
+            }
+        }
+        else if (dir.magnitude <= 0.1)
+        {
+            currSpeed = 0f;
+        }
+        else if (dir.magnitude > 1.7f)
+        {
+            //go full speed if we've got some ways before the stoplight
+            currSpeed = vehicle.Speed;
+        }
+        else if (status == Status.Slow)
+        {
+            if (currSpeed > 0.6f)
+            {
+                currSpeed *= 0.95f;
+            }
+            else
+            {
+                currSpeed = 0.6f;
+            }
+        }
+        else if (status == Status.Stop)
+        {
+            if (currSpeed > 0.6f)
+            {
+                currSpeed *= 0.98f;
+            }
+            else
+            {
+                currSpeed = 0.6f;
+            }
+        }
 
-			distThisFrame = currSpeed * Time.deltaTime;
-			transform.Translate (dir.normalized * distThisFrame, Space.World);
-			//turn if we need to turn
-			this.transform.rotation = Quaternion.LookRotation(dir, new Vector3(0,0,-1).normalized);
-			this.transform.Rotate (new Vector3 (-90, 0));
-			updateStatus ();
-		}
-	}
+
+        distThisFrame = currSpeed * Time.deltaTime;
+        transform.Translate(dir.normalized * distThisFrame, Space.World);
+        //turn if we need to turn
+        this.transform.rotation = Quaternion.LookRotation(dir, new Vector3(0, 0, -1).normalized);
+        this.transform.Rotate(new Vector3(-90, 0));
+        updateStatus();
+
+    }
 }
