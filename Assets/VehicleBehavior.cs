@@ -108,7 +108,12 @@ public class VehicleBehavior : MonoBehaviour {
 
         if (status == Status.Go)
         {
-            currSpeed = vehicle.Speed;
+			//if we're close to our max speed (or greater than it), just snap to it
+			if (currSpeed >= vehicle.Speed - 0.05f)
+				currSpeed = vehicle.Speed;
+			else
+				currSpeed += vehicle.Acceleration;
+			
             distThisFrame = currSpeed * Time.deltaTime;
 
             if (dir.magnitude <= distThisFrame)
@@ -143,8 +148,12 @@ public class VehicleBehavior : MonoBehaviour {
         else if (dir.magnitude > 1.7f)
         {
             //go full speed if we've got some ways before the stoplight
-            currSpeed = vehicle.Speed;
-        }
+			//if we're close to our max speed (or greater than it), just snap to it
+			if (currSpeed >= vehicle.Speed - 0.05f)
+				currSpeed = vehicle.Speed;
+			else
+				currSpeed += vehicle.Acceleration;
+		}
         else if (status == Status.Slow)
         {
             if (currSpeed > 0.6f)

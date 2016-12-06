@@ -25,7 +25,7 @@ public class CarSpawner : MonoBehaviour
     void FixedUpdate()
     {
         //randomly spawn cars, but only if there's not already a car colliding with the spawner
-        if (((float)Random.Range(0, 100)) / 100f < SpawnChance && _currentlyCollidingObjects.Count == 0)
+        if (((float)Random.Range(0, 10000)) / 10000f < SpawnChance && _currentlyCollidingObjects.Count == 0)
         {
             SpawnCar();
         }
