@@ -10,6 +10,8 @@ public class SDN : MonoBehaviour {
 
 	public List<VehicleBehavior> ShortestPath = new List<VehicleBehavior> ();
 
+	public UnityEngine.UI.Text text;
+
 	private TimeSpan timeToRunTest;
 	private DateTime lastRun;
 
@@ -24,6 +26,7 @@ public class SDN : MonoBehaviour {
 		if (DateTime.Now - lastRun >= timeToRunTest) {
 			OnTestTimerElapsed ();
 		}
+		text.text = "yoyo";
 	}
 
 	public bool addToVehicleList(VehicleBehavior vehicle) {

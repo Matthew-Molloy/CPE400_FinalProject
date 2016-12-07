@@ -143,7 +143,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   searchRadius: 6.9
-  showSearchRadius: 1
+  showSearchRadius: 0
   radiusRenderer: {fileID: 0}
 --- !u!120 &120000010533503400
 LineRenderer:
