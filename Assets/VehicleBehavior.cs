@@ -54,11 +54,16 @@ public class VehicleBehavior : MonoBehaviour {
 		currSpeed = vehicle.Speed;
 		stoplight = null;
 
+        radiusRenderer = GetComponent<CircleRenderer>();
+
         if (showSearchRadius)
         {
-            radiusRenderer = GetComponent<CircleRenderer>();
             radiusRenderer.radius = searchRadius;
-        }		
+        }
+        else
+        {
+            radiusRenderer.enabled = false;
+        }
 	}
 
 	WaypointNode GetNextWaypoint(int currentIndex)
