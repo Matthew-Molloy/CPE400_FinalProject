@@ -34,16 +34,6 @@ namespace AssemblyCSharp
 		{
 			return true;
 		}
-
-		public int[] Position {
-			get {
-				return this.position;
-			}
-			set {
-				position = value;
-			}
-		}
-
 	}
 }
 

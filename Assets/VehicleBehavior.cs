@@ -12,12 +12,13 @@ public class VehicleBehavior : MonoBehaviour {
 	}
 
 	public Vehicle vehicle = new Vehicle();
-	GameObject _waypoint;
-	WaypointNode targetWaypoint = null;
-	int waypointIndex = 0;
-	GameObject stoplight;
-	Status status;
-	float currSpeed;
+	private GameObject _waypoint;
+	private WaypointNode targetWaypoint = null;
+	private int waypointIndex = 0;
+	private GameObject stoplight;
+	private Status status;
+	private float currSpeed;
+	private SDN _sdn;
 
 	// Use this for initialization
 	void Start () {
@@ -32,10 +33,16 @@ public class VehicleBehavior : MonoBehaviour {
 				closestDist = distance;
 				_waypoint = waypoint;
 			}
+
+			_sdn = GameObject.FindObjectOfType<SDN> ();
+			if (_sdn == null) {
+				throw new UnassignedReferenceException ("Couldn't find the SDN object!");
+			}
+
 		}
 
 		// Add to vehicle list
-		SDN.addToVehicleList(gameObject);
+		_sdn.addToVehicleList(this);
 
 		Debug.Assert (_waypoint != null, "Unable to find any waypoints on initialize!");
 		status = Status.Go;
@@ -100,7 +107,7 @@ public class VehicleBehavior : MonoBehaviour {
             if (targetWaypoint == null)
             {
                 Debug.Log("Hit the last waypoint. Despawning car.");
-				SDN.removeFromVehicleList (gameObject);
+				_sdn.removeFromVehicleList (this);
                 Destroy(gameObject);
                 return;
             }
