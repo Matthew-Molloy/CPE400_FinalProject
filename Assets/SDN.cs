@@ -42,6 +42,11 @@ public class SDN : MonoBehaviour {
 	public List<VehicleBehavior> calculatePath(VehicleBehavior vehicleStart, VehicleBehavior vehicleEnd) {
 		ShortestPath.Clear ();
 
+		// Deactivate all radius
+		foreach (VehicleBehavior vehicle in vehicleList) {
+			vehicle.showSearchRadius = false;
+		}
+
 		//bfsInfo keeps track of the shortest path
 		// Key: The VehicleBehavior (vehicle)
 		// Value: Tuple of <float, GameObject> where
@@ -84,7 +89,7 @@ public class SDN : MonoBehaviour {
 
 		}
 
-		Debug.Log ("Done doing DFS.");
+		Debug.Log ("Done doing BFS.");
 
 		//check if we found a solution
 		if (!bfsInfo.ContainsKey (vehicleEnd)) {
@@ -98,6 +103,8 @@ public class SDN : MonoBehaviour {
 		//Time to traverse the path back to the start node
 		var node = vehicleEnd;
 		while (node != null) {
+			// Activate radius display
+			node.showSearchRadius = true;
 			ShortestPath.Add (node);
 			node = bfsInfo [node].Second;
 		}
@@ -105,6 +112,7 @@ public class SDN : MonoBehaviour {
         ShortestPath.Reverse();
 		Debug.Log ("Shortest path involves traversing through " + ShortestPath.Count + " nodes.");
         DrawPath(ShortestPath);
+
 		return ShortestPath;
 	}
 
