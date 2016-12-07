@@ -9,6 +9,7 @@ namespace AssemblyCSharp
 		private float speed;
 		private int topSpeed;
 		private double acceleration;
+		public int radius;
 
 		public Vehicle ()
 		{
@@ -16,6 +17,7 @@ namespace AssemblyCSharp
 			speed = 2f;
 			acceleration = 0.1;
 			topSpeed = 1;
+			radius = 5;
 		}
 
 		public void stop()

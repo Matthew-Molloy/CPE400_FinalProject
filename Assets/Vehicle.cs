@@ -4,14 +4,15 @@ namespace AssemblyCSharp
 {
 	public class Vehicle
 	{
-
-		private int[] position;
-		public float Speed = 3f;
-		public float Acceleration = 0.06f;
+		public float Speed;
+		public float Acceleration;
+		public int radius;
 
 		public Vehicle ()
 		{
-			position = new int[2];
+			Speed = 3f;
+			Acceleration = 0.06f;
+			radius = 5;
 		}
 
 		public void stop()

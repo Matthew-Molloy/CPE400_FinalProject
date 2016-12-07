@@ -34,6 +34,9 @@ public class VehicleBehavior : MonoBehaviour {
 			}
 		}
 
+		// Add to vehicle list
+		SDN.addToVehicleList(gameObject);
+
 		Debug.Assert (_waypoint != null, "Unable to find any waypoints on initialize!");
 		status = Status.Go;
 		currSpeed = vehicle.Speed;
@@ -97,6 +100,7 @@ public class VehicleBehavior : MonoBehaviour {
             if (targetWaypoint == null)
             {
                 Debug.Log("Hit the last waypoint. Despawning car.");
+				SDN.removeFromVehicleList (gameObject);
                 Destroy(gameObject);
                 return;
             }
