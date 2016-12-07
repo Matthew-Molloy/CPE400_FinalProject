@@ -41,7 +41,7 @@ public class CarSpawner : MonoBehaviour
         var newObj = Instantiate(ObjectToSpawn, new Vector3(myPos.x, myPos.y, myPos.z),
             this.transform.localRotation);
 
-		Debug.Log(string.Format("Spawning a new car at [{0},{1}] with ID '{2}'.", myPos.x, myPos.y, (uint)newObj.GetInstanceID()));
+		//Debug.Log(string.Format("Spawning a new car at [{0},{1}] with ID '{2}'.", myPos.x, myPos.y, (uint)newObj.GetInstanceID()));
 
     }
 

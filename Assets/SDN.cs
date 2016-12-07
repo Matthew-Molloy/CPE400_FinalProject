@@ -12,21 +12,58 @@ public class SDN : MonoBehaviour {
 
 	public UnityEngine.UI.Text text;
 
-	private TimeSpan timeToRunTest;
+    public int MinNumVehiclesToSendMessage = 8;
+    public int MessagesSkippedNotEnoughVehicles = 0;
+    public int MessagesDelivered = 0;
+    public int MessagesLostInTransit = 0;
+    public int MessagesLostNoRoute = 0;
+
+    /// <summary>
+    /// How fast the message travels between the vehicles in the list
+    /// </summary>
+    [Range(0.5f, 15f)]
+    public float TravelSpeed = 7f;
+
+    /// <summary>
+    /// How long (in milliseconds) that the message should be held at a node between transmissions.
+    /// </summary>
+    [Range(0, 2000)]
+    public int msToHoldBetweenCars = 500;
+
+    [Range(1,20)]
+    public int SecondsBetweenRouteAttempts = 5;
+
+
+    public bool CurrentlyRouting = false;
+    public Message MessageObjectToSpawn;
+
 	private DateTime lastRun;
+    private Message _currentMessage = null;
 
 	// Use this for initialization
 	void Start () {
 		lastRun = DateTime.Now;
-		timeToRunTest = new TimeSpan (0, 0, 0, 5);
 	}
 
 	// Update is called once per frame
 	void Update () {
-		if (DateTime.Now - lastRun >= timeToRunTest) {
+        if (_currentMessage == null)
+            CurrentlyRouting = false;
+
+		if (!CurrentlyRouting && DateTime.Now - lastRun >= new TimeSpan(0, 0, 0, SecondsBetweenRouteAttempts)) {
 			OnTestTimerElapsed ();
 		}
-		text.text = "yoyo";
+        var str = "";
+        str += String.Format("Messages Delivered: {0}\r\n", MessagesDelivered);
+        str += String.Format("Messages Lost (transit): {0}\r\n", MessagesLostInTransit);
+        str += String.Format("Messages Lost (no route): {0}\r\n", MessagesLostNoRoute);
+
+
+        text.text = str;
+
+
+
+        DrawPath(ShortestPath);
 	}
 
 	public bool addToVehicleList(VehicleBehavior vehicle) {
@@ -99,7 +136,7 @@ public class SDN : MonoBehaviour {
 			//uh oh, we never encountered the end vehicle, so there's no path!
 			Debug.LogWarning("Couldn't find any path between the vehicles!!!");
             DrawPath(ShortestPath);
-
+            MessagesLostNoRoute++;
             return null;
 		}
 
@@ -123,7 +160,17 @@ public class SDN : MonoBehaviour {
     {
         var line = gameObject.GetComponent<LineRenderer>();
         if (line == null)
-            gameObject.AddComponent<LineRenderer>();
+            line = gameObject.AddComponent<LineRenderer>();
+
+        foreach (var vehicle in path)
+        {
+            //if any vehicle is null in the list, just get rid of the line
+            if (vehicle == null)
+            {
+                line.SetVertexCount(0);
+                return;
+            }
+        }
 
         line.SetVertexCount(path.Count);
         line.SetColors(Color.red, Color.black);
@@ -156,9 +203,11 @@ public class SDN : MonoBehaviour {
 
 	private void OnTestTimerElapsed()
 	{
-		if (vehicleList.Count < 8) {
+		if (vehicleList.Count < MinNumVehiclesToSendMessage) {
 			Debug.Log ("Not enough vehicles to test the pathfinding. Passing.");
-			return;
+            MessagesSkippedNotEnoughVehicles++;
+
+            return;
 		}
 
 		Debug.Log ("Starting a test run of the pathfinding...");
@@ -172,7 +221,20 @@ public class SDN : MonoBehaviour {
             second = rand.Next(vehicleList.Count);
         		
 		//test pathfinding
-		calculatePath(vehicleList[first], vehicleList[second]);
+		var path = calculatePath(vehicleList[first], vehicleList[second]);
+        
+        if (path != null)
+        {
+            var firstCar = path[0];
+
+            _currentMessage = (Message) Instantiate(MessageObjectToSpawn, firstCar.transform.position, firstCar.transform.rotation);
+            _currentMessage.Path = path;
+            _currentMessage.instantiated = true;
+            _currentMessage.SdnRef = this;
+            _currentMessage.msToHoldBetweenCars = msToHoldBetweenCars;
+            _currentMessage.TravelSpeed = TravelSpeed;
+        }
+        CurrentlyRouting = true;
 
 		lastRun = DateTime.Now;
 	}

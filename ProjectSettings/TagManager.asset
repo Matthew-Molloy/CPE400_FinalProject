@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Waypoints
   - SDN
+  - Message
   layers:
   - Default
   - TransparentFX

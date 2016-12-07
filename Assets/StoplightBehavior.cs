@@ -29,7 +29,7 @@ public class StoplightBehavior : MonoBehaviour {
 			_currentColor = Color.red;
 		}
 		resetTimers ();
-		Debug.Log ("Light: Yellow");
+		//Debug.Log ("Light: Yellow");
 	}
 	
 	// Update is called once per frame
@@ -61,7 +61,7 @@ public class StoplightBehavior : MonoBehaviour {
 			if (redTimer > 500) {
 				stoplight.Status = Stoplight.Light.Green;
 				_currentColor = Color.green;
-				Debug.Log ("Light: Green");
+				//Debug.Log ("Light: Green");
 				resetTimers ();
 			}
 		} else if (stoplight.Status == Stoplight.Light.Yellow) {
@@ -70,7 +70,7 @@ public class StoplightBehavior : MonoBehaviour {
 			if (yellowTimer > 150) {
 				stoplight.Status = Stoplight.Light.Red;
 				_currentColor = Color.red;
-				Debug.Log ("Light: Red");
+				//Debug.Log ("Light: Red");
 				resetTimers ();
 			}
 		} else if (stoplight.Status == Stoplight.Light.Green) {
@@ -79,7 +79,7 @@ public class StoplightBehavior : MonoBehaviour {
 			if (greenTimer > 500) {
 				stoplight.Status = Stoplight.Light.Yellow;
 				_currentColor = Color.yellow;
-				Debug.Log ("Light: Yellow");
+				//Debug.Log ("Light: Yellow");
 				resetTimers ();
 			}
 		}

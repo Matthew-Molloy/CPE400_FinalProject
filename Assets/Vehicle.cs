@@ -10,7 +10,7 @@ namespace AssemblyCSharp
 
 		public Vehicle ()
 		{
-			Speed = 3f;
+			Speed = 2.5f;
 			Acceleration = 0.06f;
 			radius = 5;
 		}
