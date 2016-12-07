@@ -142,7 +142,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fbf1cfaef48224c8e8894b11605158b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  searchRadius: 7.5
+  searchRadius: 6.9
+  showSearchRadius: 0
   radiusRenderer: {fileID: 0}
 --- !u!120 &120000010533503400
 LineRenderer:

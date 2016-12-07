@@ -119,7 +119,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 980bd176a45b63148820dc16ecb0a14f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SpawnChance: 0.003
+  SpawnChance: 0.01
   ObjectToSpawn: {fileID: 1000011788739616, guid: 3744b92535a695e4db5aa8ac666a2aae,
     type: 2}
 --- !u!4 &4544100
@@ -577,7 +577,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 980bd176a45b63148820dc16ecb0a14f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SpawnChance: 0.003
+  SpawnChance: 0.01
   ObjectToSpawn: {fileID: 1000011788739616, guid: 3744b92535a695e4db5aa8ac666a2aae,
     type: 2}
 --- !u!4 &78909292
@@ -942,7 +942,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 980bd176a45b63148820dc16ecb0a14f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SpawnChance: 0.003
+  SpawnChance: 0.01
   ObjectToSpawn: {fileID: 1000011788739616, guid: 3744b92535a695e4db5aa8ac666a2aae,
     type: 2}
 --- !u!4 &136981872
@@ -2727,7 +2727,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 980bd176a45b63148820dc16ecb0a14f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SpawnChance: 0.003
+  SpawnChance: 0.01
   ObjectToSpawn: {fileID: 1000011788739616, guid: 3744b92535a695e4db5aa8ac666a2aae,
     type: 2}
 --- !u!4 &351069931
@@ -4562,6 +4562,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   vehicleList: []
+  ShortestPath: []
 --- !u!4 &580964647
 Transform:
   m_ObjectHideFlags: 0
@@ -7296,7 +7297,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 980bd176a45b63148820dc16ecb0a14f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SpawnChance: 0.003
+  SpawnChance: 0.01
   ObjectToSpawn: {fileID: 1000011788739616, guid: 3744b92535a695e4db5aa8ac666a2aae,
     type: 2}
 --- !u!4 &1045955271
@@ -8256,7 +8257,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 980bd176a45b63148820dc16ecb0a14f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SpawnChance: 0.003
+  SpawnChance: 0.01
   ObjectToSpawn: {fileID: 1000011788739616, guid: 3744b92535a695e4db5aa8ac666a2aae,
     type: 2}
 --- !u!4 &1170124544
@@ -10667,7 +10668,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 980bd176a45b63148820dc16ecb0a14f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SpawnChance: 0.003
+  SpawnChance: 0.01
   ObjectToSpawn: {fileID: 1000011788739616, guid: 3744b92535a695e4db5aa8ac666a2aae,
     type: 2}
 --- !u!4 &1513932949

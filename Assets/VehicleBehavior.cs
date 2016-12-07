@@ -15,6 +15,7 @@ public class VehicleBehavior : MonoBehaviour {
 
 	[Range(1,20)]
 	public float searchRadius = 5f;
+    public bool showSearchRadius = true;
 	public CircleRenderer radiusRenderer;
 	private GameObject _waypoint;
 	private WaypointNode targetWaypoint = null;
@@ -53,9 +54,11 @@ public class VehicleBehavior : MonoBehaviour {
 		currSpeed = vehicle.Speed;
 		stoplight = null;
 
-
-		radiusRenderer = GetComponent<CircleRenderer> ();
-		radiusRenderer.radius = searchRadius;
+        if (showSearchRadius)
+        {
+            radiusRenderer = GetComponent<CircleRenderer>();
+            radiusRenderer.radius = searchRadius;
+        }		
 	}
 
 	WaypointNode GetNextWaypoint(int currentIndex)

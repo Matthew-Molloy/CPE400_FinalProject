@@ -90,21 +90,41 @@ public class SDN : MonoBehaviour {
 		if (!bfsInfo.ContainsKey (vehicleEnd)) {
 			//uh oh, we never encountered the end vehicle, so there's no path!
 			Debug.LogWarning("Couldn't find any path between the vehicles!!!");
+            DrawPath(ShortestPath);
 
-			return null;
+            return null;
 		}
 
 		//Time to traverse the path back to the start node
 		var node = vehicleEnd;
-		while (node != vehicleStart) {
+		while (node != null) {
 			ShortestPath.Add (node);
 			node = bfsInfo [node].Second;
 		}
 
+        ShortestPath.Reverse();
 		Debug.Log ("Shortest path involves traversing through " + ShortestPath.Count + " nodes.");
-
+        DrawPath(ShortestPath);
 		return ShortestPath;
 	}
+
+    private void DrawPath(List<VehicleBehavior> path)
+    {
+        var line = gameObject.GetComponent<LineRenderer>();
+        if (line == null)
+            gameObject.AddComponent<LineRenderer>();
+
+        line.SetVertexCount(path.Count);
+        line.SetColors(Color.red, Color.black);
+
+        for (int i = 0; i < path.Count; i++)
+        {
+            line.SetPosition(i, ShortestPath[i].transform.position);
+        }
+
+        line.SetWidth(1f, 0.5f);
+        line.useWorldSpace = true;
+    }
 
 	private List<VehicleBehavior> GetAllVehiclesWithinRadius(VehicleBehavior vehicle, float maxDist)
 	{
@@ -132,13 +152,14 @@ public class SDN : MonoBehaviour {
 
 		Debug.Log ("Starting a test run of the pathfinding...");
 		var rand = new System.Random();
-
-		//pick two random vehicles
-		var first = rand.Next(vehicleList.Count);
-		var second = first;
-		while (second == first)
-			second = rand.Next (vehicleList.Count);
-		
+        var dist = 0;
+        int first, second;
+        
+        //pick two random vehicles
+        second = first = rand.Next(vehicleList.Count);
+        while (second == first)
+            second = rand.Next(vehicleList.Count);
+        		
 		//test pathfinding
 		calculatePath(vehicleList[first], vehicleList[second]);
 
