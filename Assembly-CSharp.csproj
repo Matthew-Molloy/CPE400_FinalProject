@@ -47,6 +47,7 @@
   <ItemGroup>
      <Compile Include="Assets\CarDestroyer.cs" />
      <Compile Include="Assets\CarSpawner.cs" />
+     <Compile Include="Assets\CircleRenderer.cs" />
      <Compile Include="Assets\SDN.cs" />
      <Compile Include="Assets\Scripts\Test.cs" />
      <Compile Include="Assets\Scripts\Tuple.cs" />

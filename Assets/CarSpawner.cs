@@ -37,11 +37,12 @@ public class CarSpawner : MonoBehaviour
     void SpawnCar()
     {
         var myPos = transform.position;
-        Debug.Log(string.Format("Spawning a new car at [{0},{1}].", myPos.x, myPos.y));
 
-        //TODO: handle the rotation of spawned object
-        Instantiate(ObjectToSpawn, new Vector3(myPos.x, myPos.y, myPos.z),
+        var newObj = Instantiate(ObjectToSpawn, new Vector3(myPos.x, myPos.y, myPos.z),
             this.transform.localRotation);
+
+		Debug.Log(string.Format("Spawning a new car at [{0},{1}] with ID '{2}'.", myPos.x, myPos.y, (uint)newObj.GetInstanceID()));
+
     }
 
     void OnTriggerEnter2D(Collider2D other)
